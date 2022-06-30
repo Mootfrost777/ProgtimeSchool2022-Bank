@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiApp1.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp1"
+    xmlns:view="clr-namespace:MauiApp1.View"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Gray200},
+                                            Dark={StaticResource Gray500}}">
+
+    <TabBar>
+        <Tab Title="Транзакции" Icon="icon_transac.png">
+            <ShellContent ContentTemplate="{DataTemplate view:TransactionView}">
+                
+            </ShellContent>
+        </Tab>
+
+        <Tab Title="Категории" Icon="icon_list.png">
+            <ShellContent ContentTemplate="{DataTemplate view:CategoryView}">
+
+            </ShellContent>
+        </Tab>
+
+        <Tab Title="Статистика" Icon="icon_stat.png">
+            <ShellContent ContentTemplate="{DataTemplate view:StatisticsView}">
+
+            </ShellContent>
+        </Tab>
+    </TabBar>
+
+    <MenuItem Text="Тема" IconImageSource="icon_theme.png"
+              Clicked="MenuItem_Clicked"/>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Информация" Icon="icon_info.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
+    </FlyoutItem>
+
+    <Shell.FlyoutHeader>
+        <StackLayout>
+            <Label Text="Header"
+                   HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <StackLayout>
+            <Label Text="Footer"
+                   HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
+</Shell>
