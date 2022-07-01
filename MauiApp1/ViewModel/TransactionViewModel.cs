@@ -1,31 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using MauiApp1.Model;
+using MauiApp1.View;
+using MauiApp1.Helpers;
 
 namespace MauiApp1.ViewModel
 {
     public class TransactionViewModel
     {
         public ObservableCollection<Transaction> Transactions { get; set; }
+                    = new();
 
-        public TransactionViewModel()
+        public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+
+        private INavigation Navigation;
+
+        public TransactionViewModel(INavigation navigation)
         {
-            Transactions = new ObservableCollection<Transaction>()
-            {
-                new("Транспорт", 79.00f),
-                new("Еда", 2000),
-                new("Кино", 300),
-                new("Транспорт", 79.00f),
-                new("Транспорт", 79.00f),
-                new("Транспорт", 7632.00f),
-                new("Транспорт", 79.00f),
-                new("Транспорт", 79.00f)
-            };
+            Navigation = navigation;
+            
+            AddCommand = new Command(async () => await AddTransaction());
+            DeleteCommand = new Command<Transaction>(DeleteTransaction);
+            EditCommand = new Command<Transaction>(async t => await EditTransaction(t));
+
+            Transactions = ChangeTransactionFile.LoadData(Transactions);
+        }
+
+        private void DeleteTransaction(Transaction transaction)
+        {
+            Transactions.Remove(transaction);
+            ChangeTransactionFile.SaveData(Transactions);
+        }
+
+        private async Task AddTransaction()
+        {
+            await Navigation.PushAsync(new AddTransactionView(Transactions));
+        }
+
+        private async Task EditTransaction(Transaction transac)
+        {
+            await Navigation.PushAsync(new AddTransactionView(Transactions, transac));
         }
     }
 }

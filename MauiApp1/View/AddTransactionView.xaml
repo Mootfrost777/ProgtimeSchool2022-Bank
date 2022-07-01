@@ -7,13 +7,16 @@
         <Label Text="Категория"
                FontSize="Medium"/>
         <Entry Placeholder="Введите данные"
-               Margin="0, 10"/>
+               Margin="0, 10"
+               Text="{Binding CategoryEntry}"/>
 
         <Label Text="Стоимость"
                FontSize="Medium"/>
         <Entry Placeholder="Введите данные"
-               Margin="0, 10"/>
+               Margin="0, 10"
+               Text="{Binding PriceEntry}"/>
 
-        <Button Text="Добавить"/>
+        <Button Text="Добавить"
+                Command="{Binding AddTransactionCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -2,19 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.View.TransactionView"
-             Title="Transactions">
+             Title="Transactions"
+             x:Name="TransactionPage">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="btnAddTransaction"
-            Text="Add Transaction"
+        <Button Text="Добавить"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             Margin="20, 10"
-            Command="{Binding AddTransactionCommand}"/>
+            Command="{Binding AddCommand}"/>
 
         <CollectionView ItemsSource="{Binding Transactions}" Grid.Row="1" >
             <CollectionView.ItemTemplate>
@@ -22,27 +22,37 @@
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
-                                <SwipeItemView>
+                                <SwipeItemView Command="{Binding Path=BindingContext.EditCommand, 
+                                    Source={x:Reference Name=TransactionPage}}" CommandParameter="{Binding .}">
                                     <Frame BackgroundColor="LightGreen"
                                            Margin="5">
-                                        <Label Text="Изменить"/>
+                                        <Label Text="✏️" 
+                                               FontSize="Large" 
+                                               VerticalTextAlignment="Center"
+                                               HorizontalTextAlignment="Center"/>
                                     </Frame>
                                 </SwipeItemView>
 
-                                <SwipeItemView>
-                                    <Frame BackgroundColor="LightCoral"
-                                           Margin="5">
-                                        <Label Text="Удалить"/>
+                                <SwipeItemView Command="{Binding Path=BindingContext.DeleteCommand, 
+                                    Source={x:Reference Name=TransactionPage}}" CommandParameter="{Binding .}">
+                                    <Frame BackgroundColor="LightCoral" Margin="5">
+                                        <Label Text="🗑️" 
+                                               FontSize="Large" 
+                                               VerticalTextAlignment="Center"
+                                               HorizontalTextAlignment="Center"/>
                                     </Frame>
                                 </SwipeItemView>
                             </SwipeItems>
                         </SwipeView.RightItems>
                         
                     <Frame CornerRadius="20" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource FrameLight}, Dark={StaticResource FrameDark}}">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Category}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
-                            <Label Text="{Binding Price}" FontSize="Medium" />
-                        </StackLayout>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Category}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding Price}" FontSize="Medium"/>
+                                </StackLayout>
+                                <Label Text="{Binding Date}" FontSize="Micro"/>
+                            </StackLayout>
                     </Frame>
                     </SwipeView>
                 </DataTemplate>

@@ -7,6 +7,6 @@ public partial class TransactionView : ContentPage
 	{
 		InitializeComponent();
 
-		BindingContext = new TransactionViewModel();
+		BindingContext = new TransactionViewModel(Navigation);
 	}
 }

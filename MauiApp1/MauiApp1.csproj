@@ -57,6 +57,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\AddTransactionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\CategoryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
